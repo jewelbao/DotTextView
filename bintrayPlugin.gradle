@@ -1,113 +1,71 @@
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.novoda.bintray-release'
 
 Properties properties = new Properties()
 File localProFile = project.file("local.properties")
-if(localProFile.exists()) {
+if (localProFile.exists()) {
     properties.load(localProFile.newDataInputStream())
 }
 File projectProFile = project.file("project.properties")
-if(projectProFile.exists()) {
+if (projectProFile.exists()) {
     properties.load(projectProFile.newDataInputStream())
 }
 
-def projectName = properties.getProperty("project.name")
+def projectMavenName = properties.getProperty("project.maven")
 def projectGroupId = properties.getProperty("project.groupId")
 def projectArtifactId = properties.getProperty("project.artifactId")
 def projectVersionName = android.defaultConfig.versionName
-def projectPackaging = properties.getProperty("project.packaging")
 def projectSiteUrl = properties.getProperty("project.siteUrl")
-def projectGitUrl = properties.getProperty("project.gitUrl")
-
-
-def developerId = properties.getProperty("dev.id")
 def developerName = properties.getProperty("dev.name")
-def developerEmail = properties.getProperty("dev.email")
-
-def bintrayUser = properties.getProperty("bintray.user")
-def bintraykey = properties.getProperty("bintray.apikey")
 
 group = projectGroupId
 
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                name projectName
-                groupId projectGroupId
-                artifactId projectArtifactId
-                version projectVersionName
-                packaging projectPackaging
-                url projectSiteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id developerId
-                        name developerName
-                        email developerEmail
-                    }
-                }
-                scm {
-                    connection projectGitUrl
-                    developerConnection projectGitUrl
-                    url projectSiteUrl
-                }
-            }
-        }
-    }
+
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
 }
 
-
-// This generates sources.jar
+//生成源文件
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-// This generates javadoc.jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-// javadoc configuration 无
-//javadoc {
-//    options{
-//        encoding "UTF-8"
-//        charSet 'UTF-8'
-//        author true
-//        version projectVersionName
-//        links "http://docs.oracle.com/javase/7/docs/api"
-//        title javadocName
-//    }
+//生成Javadoc文档
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 //}
 
-// bintray configuration
-bintray {
-    user = bintrayUser
-    key = bintraykey
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = projectName
-        websiteUrl = projectSiteUrl
-        vcsUrl = projectGitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
+//文档打包成jar
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+////拷贝javadoc文件
+//task copyDoc(type: Copy) {
+//    from "${buildDir}/docs/"
+//    into "docs"
+//}
+
+//上传到JCenter所需要的源码文件
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+//解决 JavaDoc 中文注释生成失败的问题
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+//发布到 Bintray
+publish {
+    repoName = projectMavenName//远程仓库名字,不指明，默认是上传到maven
+    userOrg = developerName//bintray.com的用户名
+    groupId = projectGroupId //jcenter上的路径
+    artifactId = projectArtifactId//项目名称
+    publishVersion = '1.0.0' //版本号
+    desc = '继承于TextView的显示圆点的控件，支持圆点位置设置'//描述，不重要
+    website = projectSiteUrl//项目主页
 }

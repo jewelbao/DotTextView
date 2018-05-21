@@ -1,6 +1,6 @@
 # **小圆点TextView**
 
-[ ![Download](https://api.bintray.com/packages/jewel/maven/DotTextView/images/download.svg) ](https://bintray.com/jewel/maven/DotTextView/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/jewelbao88/ComponentsMaven/DotTextView/images/download.svg) ](https://bintray.com/jewelbao88/ComponentsMaven/DotTextView/_latestVersion)
 
 ## 介绍
  可自由设置红点在TextView中任意位置的控件。一般适用需要显示圆点提醒的控件(例如检查更新)。
@@ -18,7 +18,14 @@
 
 ## 简单用例
 
-1.在XML布局中添加DotTextView
+1.在 build.gradle 中添加依赖
+
+```
+compile 'com.jewel.components:DotTextView:1.0.0'
+```
+
+
+2.在XML布局中添加DotTextView
 
 
 ```
@@ -38,7 +45,7 @@
         app:isDebug="false" />
 ```
 
-2.在Java代码里设置
+3.在Java代码里设置
 
 
 ```
