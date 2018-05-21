@@ -250,6 +250,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             }
         }
 
+        dotTextView.setDotOffsetX(10);
+        dotTextView.setDotOffsetY(10);
+
         if (buttonView instanceof CheckBox) {
             switch (buttonView.getId()) {
                 case R.id.cb_left:
