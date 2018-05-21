@@ -1,5 +1,6 @@
 # **小圆点TextView**
 
+[ ![Download](https://api.bintray.com/packages/jewel/maven/DotTextView/images/download.svg) ](https://bintray.com/jewel/maven/DotTextView/_latestVersion)
 
 ## 介绍
  可自由设置红点在TextView中任意位置的控件。一般适用需要显示圆点提醒的控件(例如检查更新)。
