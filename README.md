@@ -21,7 +21,7 @@
 1.在 build.gradle 中添加依赖
 
 ```
-compile 'com.jewel.components:DotTextView:1.0.0'
+compile 'com.jewel.components:DotTextView:1.0.1'
 ```
 
 

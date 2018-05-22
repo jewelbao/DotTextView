@@ -65,7 +65,7 @@ publish {
     userOrg = developerName//bintray.com的用户名
     groupId = projectGroupId //jcenter上的路径
     artifactId = projectArtifactId//项目名称
-    publishVersion = '1.0.0' //版本号
+    publishVersion = projectVersionName //版本号
     desc = '继承于TextView的显示圆点的控件，支持圆点位置设置'//描述，不重要
     website = projectSiteUrl//项目主页
 }
