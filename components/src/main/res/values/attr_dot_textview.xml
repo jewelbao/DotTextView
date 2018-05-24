@@ -3,9 +3,9 @@
     <declare-styleable name="DotTextView">
         <!-- 圆点填充颜色 -->
         <attr name="dotColor" format="color|reference" />
-        <!-- 圆点左X坐标偏移量 -->
+        <!-- 圆点X坐标偏移量 -->
         <attr name="dotOffsetX" format="dimension|reference"/>
-        <!-- 圆点右Y坐标偏移量 -->
+        <!-- 圆点Y坐标偏移量 -->
         <attr name="dotOffsetY" format="dimension|reference"/>
         <!-- 圆点半径 -->
         <attr name="dotRadius" format="integer" />
@@ -20,6 +20,8 @@
             <flag name="leftDrawableCenter" value="7" />
             <flag name="rightDrawableCenter" value="8" />
         </attr>
+        <!-- 是否显示圆点 -->
+        <attr name="showDot" format="boolean" />
         <!-- 测试模式，只为了看预览数据时使用，打包时必须设置为false，默认false -->
         <attr name="isDebug" format="boolean"/>
     </declare-styleable>

@@ -25,20 +25,43 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class DotTextView extends android.support.v7.widget.AppCompatTextView {
 
+    /**
+     * 默认圆点半径
+     */
     public static final int DEFAULT_RADIUS = 10;
 
     private Paint dotPaint;
     private Rect textRect;
+    /**
+     * 圆点颜色
+     */
     private int dotColor;
-
+    /**
+     * 圆点X坐标偏移量
+     */
     private int dotOffsetX;
+    /**
+     * 圆点Y坐标偏移量
+     */
     private int dotOffsetY;
 
+    /**
+     * 圆点显示位置
+     */
     @DotGravity
     private int dotGravity;
 
+    /**
+     * 圆点半径
+     */
     private int dotRadius;
-
+    /**
+     * 是否显示圆点
+     */
+    private boolean isShowDot;
+    /**
+     * 是否开启立即刷新UI
+     */
     private boolean refreshIImmediately = true;
 
     private Paint debugPaint;
@@ -59,6 +82,7 @@ public class DotTextView extends android.support.v7.widget.AppCompatTextView {
             dotOffsetY = typedArray.getDimensionPixelSize(R.styleable.DotTextView_dotOffsetY, 0);
             dotGravity = typedArray.getInteger(R.styleable.DotTextView_dotGravity, RIGHT_TOP);
             dotRadius = typedArray.getInt(R.styleable.DotTextView_dotRadius, DEFAULT_RADIUS);
+            isShowDot = typedArray.getBoolean(R.styleable.DotTextView_showDot, true);
             isDebug = typedArray.getBoolean(R.styleable.DotTextView_isDebug, false);
 
             typedArray.recycle();
@@ -82,6 +106,10 @@ public class DotTextView extends android.support.v7.widget.AppCompatTextView {
         super.onDraw(canvas);
 
         if (TextUtils.isEmpty(getText())) {
+            return;
+        }
+
+        if(!isShowDot) {
             return;
         }
 
@@ -283,6 +311,15 @@ public class DotTextView extends android.support.v7.widget.AppCompatTextView {
     }
 
     /**
+     * 是否显示圆点
+     * @param showDot 默认true
+     */
+    public void setShowDot(boolean showDot) {
+        isShowDot = showDot;
+        if (refreshIImmediately) postInvalidate();
+    }
+
+    /**
      * 小原点的位置
      */
     @Retention(RetentionPolicy.SOURCE)
@@ -316,14 +353,12 @@ public class DotTextView extends android.support.v7.widget.AppCompatTextView {
      */
     public static final byte RIGHT_CENTER = 6;
     /**
-     * 小圆点处于左图标居中位置，如果在xml布局中设置了{@literal android:drawableLeft} 或 {@literal android:drawableStart}
-     * 或在代码中设置了{@link android.support.v7.widget.AppCompatTextView#setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)}[第一个参数有效]生效。
+     * 小圆点处于左图标居中位置，设置了{@link android.support.v7.widget.AppCompatTextView#setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)}[第一个参数有效]生效。
      * 否则按{@linkplain #LEFT_CENTER 文本左居中位置}处理
      */
     public static final byte LEFT_DRAWABLE_CENTER = 7;
     /**
-     * 小圆点处于右图标居中位置，如果在xml布局中设置了{@literal android:drawableRight} 或 {@literal android:drawableEnd}
-     * 或在代码中设置了{@link android.support.v7.widget.AppCompatTextView#setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)}[第三个参数有效]生效。
+     * 小圆点处于右图标居中位置，设置了{@link android.support.v7.widget.AppCompatTextView#setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)}[第三个参数有效]生效。
      * 否则按{@linkplain #RIGHT_CENTER 文本右居中位置}处理
      */
     public static final byte RIGHT_DRAWABLE_CENTER = 8;
