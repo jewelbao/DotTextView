@@ -6,6 +6,7 @@
  可自由设置红点在TextView中任意位置的控件。一般适用需要显示圆点提醒的控件(例如检查更新)。
 
 
+
 ##  详细特性
 - 设置圆点颜色值
 - 设置圆点半径
@@ -21,7 +22,7 @@
 1.在 build.gradle 中添加依赖
 
 ```
-compile 'com.jewel.components:DotTextView:1.0.1'
+compile 'com.jewel.components:DotTextView:1.0.0'
 ```
 
 
@@ -67,6 +68,34 @@ dotTextView.setDotGravity(DotTextView.RIGHT_TOP);
 dotTextView.setRefreshIImmediately(true); // 重新开启刷新开关
 dotTextView.refresh(); // 刷新,调用此方法，无论是否设置了上面的方法，都会刷新UI
 ```
+
+## xml属性说明
+
+
+
+属性 | 解释
+---|---
+dotColor | 圆点填充颜色
+dotOffsetX | 圆点X坐标偏移量
+dotOffsetY | 圆点Y坐标偏移量
+dotRadius | 圆点半径
+showDot | 是否显示圆点
+dotGravity | 圆点位置，默认为rightTop
+
+
+dotGravity | 圆点显示位置
+---|---
+leftTop | 基于文本左上角
+rightTop | 基于文本右上角
+leftBottom | 基于文本左下角
+rightBottom | 基于文本右下角
+leftCenter | 基于文本左居中
+rightCenter | 基于文本右居中
+leftDrawableCenter | 基于左图标居中位置
+rightDrawableCenter | 基于右图标居中位置
+
+
+
 
 ## License
 
